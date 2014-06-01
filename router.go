@@ -13,7 +13,7 @@ func (r *Router) Add(method string, path string, fn RouteFunc) {
 	r.routes = append(r.routes, route)
 }
 
-func (r *Router) Find(request *http.Request) {
+func (r *Router) Find(request *http.Request) *Route {
 	for _, route := range r.routes {
 		if route.Match(request) {
 			return route

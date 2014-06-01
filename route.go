@@ -2,6 +2,7 @@ package utor
 
 import (
 	"net/http"
+	"reflect"
 )
 
 type RouteFunc interface{}
@@ -20,5 +21,6 @@ func (r *Route) Match(request *http.Request) bool {
 }
 
 func (r *Route) Run(response http.ResponseWriter, request *http.Request) {
-	response.Write(r.call())
+	responseBody := reflect.ValueOf(r.call).Call([]reflect.Value{})[0].String()
+	response.Write([]byte(responseBody))
 }

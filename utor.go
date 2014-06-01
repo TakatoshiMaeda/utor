@@ -3,22 +3,24 @@ package utor
 import (
 	"log"
 	"net/http"
+	"os"
 )
 
 type Utor struct {
+	http.Handler
 	router Router
 }
 
 func New() *Utor {
-	server := &Utor{router: &Router{}}
+	server := &Utor{}
 	return server
 }
 
 func (u *Utor) ServHTTP(res http.ResponseWriter, req *http.Request) {
-	route, err := u.router.Find(req)
+	route := u.router.Find(req)
 
-	if err != nil {
-		http.Error(res, "NotfoundRoute", 404)
+	if route == nil {
+		http.Error(res, "Notfound", 404)
 		return
 	}
 
@@ -31,9 +33,9 @@ func (u *Utor) Run() {
 		port = "3000"
 	}
 
-	log.Printf("listning port on ", port)
+	log.Printf("listning port on %s", port)
 
-	http.ServHTTP("localhost:"+port, u)
+	http.ListenAndServe("localhost:"+port, u)
 }
 
 func (u *Utor) Get(path string, fn RouteFunc) {
