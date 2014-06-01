@@ -41,3 +41,23 @@ func (u *Utor) Run() {
 func (u *Utor) Get(path string, fn RouteFunc) {
 	u.router.Add("GET", path, fn)
 }
+
+func (u *Utor) Post(path string, fn RouteFunc) {
+	u.router.Add("POST", path, fn)
+}
+
+func (u *Utor) Put(path string, fn RouteFunc) {
+	u.router.Add("PUT", path, fn)
+}
+
+func (u *Utor) Delete(path string, fn RouteFunc) {
+	u.router.Add("DELETE", path, fn)
+}
+
+func (u *Utor) Option(path string, fn RouteFunc) {
+	u.router.Add("OPTION", path, fn)
+}
+
+func (u *Utor) Head(path string, fn RouteFunc) {
+	u.router.Add("HEAD", path, fn)
+}
