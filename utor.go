@@ -16,7 +16,7 @@ func New() *Utor {
 	return server
 }
 
-func (u *Utor) ServHTTP(res http.ResponseWriter, req *http.Request) {
+func (u *Utor) ServeHTTP(res http.ResponseWriter, req *http.Request) {
 	route := u.router.Find(req)
 
 	if route == nil {
